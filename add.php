@@ -1,5 +1,5 @@
 <?php 
-$title = $email = $ingredients = '';
+$title = $email = $ingredients = " ";
 $errors = array('email' => '', 'title' => '', 'ingredients' => '');
  if(isset($_POST['submit'])){
     // check email
@@ -25,9 +25,15 @@ $errors = array('email' => '', 'title' => '', 'ingredients' => '');
         $errors['ingredients'] = 'At least one ingredient is required';
     } else {
         $ingredients = $_POST['ingredients'];
-        if(!preg_match("/^([a-zA-Z\s])(,\s[a-zA-Z\s]*)*$/", $ingredients)){
-            $errors['ingredients'] = "ingredients must be a comma separated list";
-        }
+			if(!preg_match('/^([a-zA-Z\s]+)(,\s*[a-zA-Z\s]*)*$/', $ingredients)){
+				$errors['ingredients'] = 'Ingredients must be a comma separated list';
+			}
+    }
+    if(array_filter($errors)){
+        // echo 'errors in the form';
+    } else {
+        // echo 'form is valid';
+        header('Location: index.php');
     }
     // end of POST check
  }
@@ -41,15 +47,15 @@ $errors = array('email' => '', 'title' => '', 'ingredients' => '');
 <form action="add.php" method="POST" class="white">
 
 <label>Your Email:</label>
-<input type="text" name="email" value=<?php $email ?> />
+<input type="text" name="email" value=<?php echo htmlspecialchars($email) ?>>
 <div class="red-text"> <?php echo $errors['email']; ?></div>
 
 <label>Pizza Title:</label>
-<input type="text" name="title" value=<?php $title ?>/>
+<input type="text" name="title" value=<?php echo htmlspecialchars($title) ?>>
 <div class="red-text"> <?php echo $errors['title']; ?></div>
 
 <label>Ingredients (comma separated):</label>
-<input type="text" name="ingredients" value=<?php $ingredients ?> />
+<input type="text" name="ingredients" value=<?php echo htmlspecialchars($ingredients) ?>>
 <div class="red-text"> <?php echo $errors['ingredients']; ?></div>
 
 <div class="center">
