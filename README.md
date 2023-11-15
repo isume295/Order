@@ -114,12 +114,6 @@ Example commands:
 ```sh
   cd my-folder
   git clone git@github.com:isume295/Order.git
-
-using Ubuntu:
-
-```sh
-  cd my-desired-folder
-  git clone git@github.com:isume295/Order.git
 ```
 
 For more information on how to clone or fork a repository:
